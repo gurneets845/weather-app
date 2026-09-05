@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Neon Weather</title>
+
+    <!-- CSS FILE -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- Animated background -->
+    <div class="stars"></div>
+
+    <div class="cloud cloud-one"></div>
+    <div class="cloud cloud-two"></div>
+
+    <!-- Main Weather Card -->
+    <div class="weather-card">
+      <div class="top-line"></div>
+
+      <h1>WEATHER</h1>
+
+      <p class="subtitle">FUTURE WEATHER SYSTEM</p>
+
+      <!-- Search -->
+      <div class="search-box">
+        <input id="cityInput" type="text" placeholder="Enter city..." />
+
+        <button id="searchButton">SEARCH</button>
+      </div>
+
+      <!-- Error -->
+      <p id="error"></p>
+
+      <!-- Weather information -->
+      <div class="weather-result">
+        <h2 id="city"></h2>
+
+        <div id="temp"></div>
+
+        <p id="weather"></p>
+      </div>
+
+      <div class="bottom-line"></div>
+
+      <p class="system-text">WEATHER SYSTEM // ONLINE</p>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+  </body>
+</html>

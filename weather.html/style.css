@@ -1,0 +1,681 @@
+/* =========================================
+   FUTURISTIC ANIME WEATHER APP
+========================================= */
+
+/* ---------- RESET ---------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------- BODY ---------- */
+
+body {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  color: white;
+
+  background:
+    radial-gradient(circle at 20% 20%, #123d68, transparent 35%),
+    radial-gradient(circle at 80% 80%, #35156b, transparent 35%),
+    linear-gradient(135deg, #02030a, #071126, #030510);
+}
+
+/* =========================================
+   BACKGROUND GLOW
+========================================= */
+
+body::before {
+  content: "";
+
+  position: fixed;
+
+  width: 500px;
+  height: 500px;
+
+  border-radius: 50%;
+
+  background: #00eaff;
+
+  opacity: 0.12;
+
+  filter: blur(120px);
+
+  animation: backgroundGlow 7s infinite alternate;
+
+  pointer-events: none;
+}
+
+@keyframes backgroundGlow {
+  0% {
+    transform: translate(-300px, -200px);
+  }
+
+  100% {
+    transform: translate(300px, 200px);
+  }
+}
+
+/* =========================================
+   STARS
+========================================= */
+
+.stars {
+  position: fixed;
+
+  width: 3px;
+  height: 3px;
+
+  top: 10%;
+  left: 10%;
+
+  background: white;
+
+  border-radius: 50%;
+
+  box-shadow:
+    80px 30px white,
+    180px 120px white,
+    300px 50px white,
+    420px 180px white,
+    550px 80px white,
+    680px 220px white,
+    800px 100px white,
+    950px 250px white,
+    1050px 70px white,
+    150px 400px white,
+    400px 350px white,
+    700px 420px white,
+    900px 350px white;
+
+  animation: starsAnimation 2s infinite alternate;
+
+  pointer-events: none;
+}
+
+@keyframes starsAnimation {
+  from {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(2);
+  }
+}
+
+/* =========================================
+   CLOUDS
+========================================= */
+
+.cloud {
+  position: fixed;
+
+  width: 180px;
+  height: 55px;
+
+  border-radius: 50px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  filter: blur(1px);
+
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.08);
+
+  pointer-events: none;
+
+  z-index: 0;
+}
+
+/* Cloud bubbles */
+
+.cloud::before {
+  content: "";
+
+  position: absolute;
+
+  width: 80px;
+  height: 80px;
+
+  left: 30px;
+  top: -40px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cloud::after {
+  content: "";
+
+  position: absolute;
+
+  width: 95px;
+  height: 95px;
+
+  right: 20px;
+  top: -50px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* First cloud */
+
+.cloud-one {
+  top: 15%;
+
+  left: -250px;
+
+  animation: cloudMoveOne 25s linear infinite;
+}
+
+/* Second cloud */
+
+.cloud-two {
+  top: 75%;
+
+  left: -300px;
+
+  transform: scale(0.7);
+
+  animation: cloudMoveTwo 35s linear infinite;
+}
+
+@keyframes cloudMoveOne {
+  from {
+    left: -250px;
+  }
+
+  to {
+    left: 110%;
+  }
+}
+
+@keyframes cloudMoveTwo {
+  from {
+    left: -300px;
+  }
+
+  to {
+    left: 110%;
+  }
+}
+
+/* =========================================
+   WEATHER CARD
+========================================= */
+
+.weather-card {
+  position: relative;
+
+  width: 430px;
+
+  min-height: 500px;
+
+  padding: 45px 35px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 18px;
+
+  border-radius: 25px;
+
+  background: rgba(5, 12, 30, 0.72);
+
+  border: 1px solid rgba(0, 234, 255, 0.35);
+
+  backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 0 20px rgba(0, 234, 255, 0.15),
+    inset 0 0 30px rgba(0, 234, 255, 0.04);
+
+  z-index: 5;
+
+  animation: cardAppear 1s ease;
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+
+    transform: translateY(40px) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================================
+   CARD BORDER ANIMATION
+========================================= */
+
+.weather-card::before {
+  content: "";
+
+  position: absolute;
+
+  inset: -1px;
+
+  border-radius: 25px;
+
+  border: 1px solid transparent;
+
+  background: linear-gradient(90deg, transparent, #00eaff, transparent)
+    border-box;
+
+  mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+
+  mask-composite: exclude;
+
+  animation: borderMove 4s linear infinite;
+
+  pointer-events: none;
+}
+
+@keyframes borderMove {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================
+   TOP LINE
+========================================= */
+
+.top-line {
+  width: 80px;
+
+  height: 3px;
+
+  background: #00eaff;
+
+  border-radius: 10px;
+
+  box-shadow:
+    0 0 10px #00eaff,
+    0 0 25px #00eaff;
+
+  animation: linePulse 1.5s infinite alternate;
+}
+
+@keyframes linePulse {
+  from {
+    width: 60px;
+  }
+
+  to {
+    width: 140px;
+  }
+}
+
+/* =========================================
+   TITLE
+========================================= */
+
+h1 {
+  font-size: 42px;
+
+  letter-spacing: 8px;
+
+  text-align: center;
+
+  color: white;
+
+  text-shadow:
+    0 0 10px #00eaff,
+    0 0 25px #00eaff,
+    0 0 50px #7b2cff;
+
+  animation: titlePulse 2s infinite alternate;
+}
+
+@keyframes titlePulse {
+  from {
+    text-shadow:
+      0 0 10px #00eaff,
+      0 0 20px #00eaff;
+  }
+
+  to {
+    text-shadow:
+      0 0 15px #00eaff,
+      0 0 35px #00eaff,
+      0 0 60px #7b2cff;
+  }
+}
+
+/* =========================================
+   SUBTITLE
+========================================= */
+
+.subtitle {
+  font-size: 11px;
+
+  letter-spacing: 4px;
+
+  color: #6c849d;
+
+  text-align: center;
+}
+
+/* =========================================
+   SEARCH BOX
+========================================= */
+
+.search-box {
+  width: 100%;
+
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 20px;
+}
+
+/* =========================================
+   INPUT
+========================================= */
+
+#cityInput {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 15px;
+
+  border-radius: 10px;
+
+  border: 1px solid rgba(0, 234, 255, 0.35);
+
+  outline: none;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  color: white;
+
+  font-size: 15px;
+
+  transition: 0.3s;
+}
+
+#cityInput::placeholder {
+  color: #63758a;
+}
+
+#cityInput:focus {
+  border-color: #00eaff;
+
+  box-shadow:
+    0 0 10px #00eaff,
+    inset 0 0 10px rgba(0, 234, 255, 0.08);
+}
+
+/* =========================================
+   SEARCH BUTTON
+========================================= */
+
+#searchButton {
+  padding: 0 20px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  color: white;
+
+  font-weight: bold;
+
+  letter-spacing: 1px;
+
+  background: linear-gradient(90deg, #00bcd4, #7b2cff);
+
+  box-shadow: 0 0 15px rgba(0, 234, 255, 0.35);
+
+  transition: 0.3s;
+}
+
+#searchButton:hover {
+  transform: translateY(-3px) scale(1.04);
+
+  box-shadow:
+    0 0 15px #00eaff,
+    0 0 35px #7b2cff;
+}
+
+#searchButton:active {
+  transform: scale(0.94);
+}
+
+/* =========================================
+   ERROR
+========================================= */
+
+#error {
+  min-height: 20px;
+
+  margin-top: 5px;
+
+  color: #ff4d6d;
+
+  font-size: 14px;
+
+  text-align: center;
+
+  text-shadow: 0 0 10px #ff1744;
+}
+
+/* =========================================
+   WEATHER RESULT
+========================================= */
+
+.weather-result {
+  width: 100%;
+
+  min-height: 200px;
+
+  margin-top: 10px;
+
+  padding: 25px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 12px;
+
+  border-radius: 18px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(0, 234, 255, 0.06),
+    rgba(123, 44, 255, 0.06)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  box-shadow: inset 0 0 25px rgba(0, 234, 255, 0.04);
+}
+
+/* =========================================
+   CITY
+========================================= */
+
+#city {
+  font-size: 30px;
+
+  letter-spacing: 3px;
+
+  text-transform: uppercase;
+
+  color: white;
+
+  text-shadow:
+    0 0 10px #00eaff,
+    0 0 25px #00eaff;
+
+  animation: resultAppear 0.6s ease;
+}
+
+/* =========================================
+   TEMPERATURE
+========================================= */
+
+#temp {
+  font-size: 52px;
+
+  font-weight: bold;
+
+  color: #00eaff;
+
+  text-shadow:
+    0 0 10px #00eaff,
+    0 0 25px #00eaff,
+    0 0 50px #00eaff;
+
+  animation: temperaturePulse 2s infinite alternate;
+}
+
+@keyframes temperaturePulse {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.07);
+  }
+}
+
+/* =========================================
+   WEATHER DESCRIPTION
+========================================= */
+
+#weather {
+  font-size: 19px;
+
+  color: #c8d8ff;
+
+  text-transform: capitalize;
+
+  letter-spacing: 2px;
+
+  text-shadow: 0 0 10px rgba(200, 216, 255, 0.5);
+}
+
+/* =========================================
+   RESULT ANIMATION
+========================================= */
+
+@keyframes resultAppear {
+  from {
+    opacity: 0;
+
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   BOTTOM LINE
+========================================= */
+
+.bottom-line {
+  width: 100%;
+
+  height: 1px;
+
+  margin-top: 5px;
+
+  background: linear-gradient(90deg, transparent, #00eaff, transparent);
+
+  box-shadow: 0 0 10px #00eaff;
+}
+
+/* =========================================
+   SYSTEM STATUS
+========================================= */
+
+.system-text {
+  font-size: 9px;
+
+  letter-spacing: 3px;
+
+  color: #3f657d;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 550px) {
+  .weather-card {
+    width: 90%;
+
+    min-height: 470px;
+
+    padding: 35px 20px;
+  }
+
+  h1 {
+    font-size: 32px;
+
+    letter-spacing: 5px;
+  }
+
+  .search-box {
+    flex-direction: column;
+  }
+
+  #cityInput {
+    width: 100%;
+  }
+
+  #searchButton {
+    height: 48px;
+  }
+
+  #temp {
+    font-size: 42px;
+  }
+
+  #city {
+    font-size: 25px;
+  }
+}
